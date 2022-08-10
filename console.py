@@ -220,14 +220,12 @@ class HBNBCommand(cmd.Cmd):
         for the command update and call the function do_update with all key
         """
         dictRepr = re.findall("({.*})", line)
-        dictRepr[0] = dictRepr[0].replace('\'', "\"")
+        dictRepr[0] = dictRepr[0].replace("\'", '\"')
         args = json.loads(dictRepr[0])
-        line_catch = re.findall("(\".*?\")", line)
-        id_line = line_catch[0].replace("\"", "")
+        line_catch = re.findall('(\".*?\")', line)
+        id_line = line_catch[0].replace('\"', "")
         for key, val in args.items():
-            self.do_update(
-                classname + " " + id_line + " " + key + " " + str(val)
-            )
+            self.do_update(f"{classname} {id_line} {key} {str(val)}")
 
     def is_float(self, num):
         """
@@ -241,16 +239,13 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, line):
         """
-        Update an attribute of an instance.
-        Usage: update <class name> <id> <attribute name> "<attribute value>"
-        Exceptions:
-            If the name class is missing
-            If the class do not exist
-            Id is missing
-            If the Id do not exist
-            If no instance found
-            If the attribute is missing
-            If the value is missing
+        The do_update function updates an instance based on the class name and id
+        by adding or updating attribute (save the change into the JSON file).
+
+        :param self: Reference the class itself
+        :param line: Replace the &quot;,&quot; in case it is necessary
+        :return: None if the command is not valid
+        :doc-author: Trelent
         """
         if not line:
             print("** class name missing **")
@@ -274,8 +269,7 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
             return False
         currentInstance = models.storage.all()[strLine]
-        if data[2] == "id" or data[2] == "created_at" or\
-                data[2] == "updated_at":
+        if data[2] in ["id", "created_at", "updated_at"]:
             return False
         if data[3].isnumeric():
             data[3] = int(data[3])
