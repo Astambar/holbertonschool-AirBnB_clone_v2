@@ -48,3 +48,15 @@ class FileStorage:
                         self.all()[key] = classes[val['__class__']](**val)
         except FileNotFoundError:
             pass
+
+    def delete(self, obj=None):
+        """Deletes the obj from __objects"""
+        if obj:
+            key = str(obj.to_dict()['__class__'] + '.' + obj.id)
+            if key in FileStorage.__objects:
+                del FileStorage.__objects[key]
+                models.storage.save()
+
+    def close(self):
+        """Realod the data"""
+        self.reload()
