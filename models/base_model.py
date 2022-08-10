@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python3.8
 """This module defines a base class for all models in our hbnb clone"""
 import uuid
 import models
@@ -14,6 +14,8 @@ if storageType == "db":
     Base = declarative_base()
 else:
     Base = object
+
+
 class BaseModel:
     """A base class for all hbnb models"""
     if storageType == "db":
@@ -48,7 +50,9 @@ class BaseModel:
                                                     '%Y-%m-%dT%H:%M:%S.%f')
 
     def __str__(self):
-        """Returns a string representation of the instance"""
+        """
+        Returns a string representation of the instance
+        """
         cls = (str(type(self)).split('.')[-1]).split('\'')[0]
         return '[{}] ({}) {}'.format(cls, self.id, self.__dict__)
 
@@ -62,7 +66,9 @@ class BaseModel:
         models.storage.save()
 
     def to_dict(self):
-        """Convert instance into dict format"""
+        """
+        Convert instance into dict format
+        """
         dictionary = {}
         dictionary.update(self.__dict__)
         dictionary.update({'__class__':
