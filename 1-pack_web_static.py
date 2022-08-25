@@ -11,12 +11,16 @@ import time
 
 def do_pack():
     """
-    Enpack all the static content of AirBnB clone
+    The do_pack function creates a tarball containing the web_static folder.
+    It returns the name of the tarball it created, or None if there was an error.
+
+    :return: The path to the tarball file
+    :doc-author: Trelent
     """
-    date = time.strftime("%Y%m%d%H%M%S")
+    complete = time.strftime("%Y%m%d%H%M%S")
     try:
         local('mkdir -p versions')
-        local(f'tar -czvf versions/web_static_{date}.tgz web_static')
-        return f'versions/web_static_{date}.tgz'
+        local('tar -czvf versions/web_static_{}.tgz web_static'.format(complete))
+        return 'versions/web_static_{}.tgz'.format(comlete)
     except(Exception):
         return None
