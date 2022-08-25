@@ -1,18 +1,22 @@
 #!/usr/bin/python3
 
 """
-Créez une archive .tgz avec tout le contenu statoc de
-mon clone statique AirBnB
+Create an .tgz archive with all the statoc content of
+my AirBnB static clone
 """
 
 from fabric.api import local
-from datetime import datetime
-date = datetime.now()
-complete = date.strftime("%Y%m%d%H%M%S")
+import time
+
+
 def do_pack():
+    """
+    Enpack all the static content of AirBnB clone
+    """
+    date = time.strftime("%Y%m%d%H%M%S")
     try:
         local('mkdir -p versions')
-        local(f"tar -cvzf versions/web_static_{complete}.tgz web_static")
-        return f"versions/web_static_{complete}.tgz"
-    except(Exception):
+        local('tar -czvf versions/web_static_{}.tgz web_static'.format(date))
+        return 'versions/web_static_{}.tgz'.format(date)
+    except Exception:
         return None
