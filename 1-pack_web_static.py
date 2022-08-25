@@ -6,7 +6,7 @@ my AirBnB static clone
 """
 
 from fabric.api import local
-from datetime import time
+import time
 
 
 def do_pack():
