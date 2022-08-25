@@ -12,7 +12,7 @@ def do_pack():
     complete = time.strftime("%Y%m%d%H%M%S")
     try:
         local('mkdir -p versions')
-        local(f'tar -cvzf versions/web_static_{complete}.tgz web_static')
-        return f'versions/web_static_{complete}.tgz'
+        local('tar -cvzf versions/web_static_{}.tgz web_static'.format(complete))
+        return 'versions/web_static_{}.tgz'.format(complete)
     except(Exception):
         return None
