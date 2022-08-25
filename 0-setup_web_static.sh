@@ -33,9 +33,6 @@ fi
 echo création du liens
 ln -s data/web_static/releases/test/ data/web_static/current
 chown -hR ubuntu:ubuntu /data/
-sudo location /hbnb_static/
-{
-    alias /data/web_static/current/;
-    autoindex off;           ↑
-}
+
+sudo sed -i '/listen 80 default_server/a location /hbnb_static/ { alias /data/web_static/current/;}' /etc/nginx/sites-available/default
 service nginx restart
