@@ -8,7 +8,7 @@ my AirBnB static clone
 from fabric.api import put, run, env
 from os.path import exists
 
-env.hosts = ['52.55.249.213']
+env.hosts = ['54.145.12.7']
 
 
 def do_deploy(archive_path):
