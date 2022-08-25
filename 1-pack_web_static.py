@@ -6,16 +6,16 @@ my AirBnB static clone
 """
 
 from fabric.api import local
-import time
+from datetime import time
 
 
 def do_pack():
     """
-    The do_pack function creates a tarball containing the web_static folder.
-    It returns the name of the tarball it created,
-    or None if there was an error.
+    La fonction do_pack crée une archive contenant le dossier web_static.
+    Il renvoie le nom de l'archive qu'il a créée,
+    ou None en cas d'erreur.
 
-    :return: The path to the tarball file
+    :return: Le chemin vers le fichier archive
     :doc-author: Trelent
     """
     complete = time.strftime("%Y%m%d%H%M%S")
@@ -24,5 +24,5 @@ def do_pack():
         local('tar -czvf versions/web_static_{}.tgz web_static'.format(complete
                                                                        ))
         return 'versions/web_static_{}.tgz'.format(complete)
-    except(Exception):
+    except Exception:
         return None
