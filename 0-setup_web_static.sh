@@ -27,10 +27,9 @@ do
 		fi
 done
 if [ -L "data/web_static/current" ]; then
-echo "suppression du liens symbolic"
+
 unlink data/web_static/current
 fi
-echo création du liens
 ln -s data/web_static/releases/test/ data/web_static/current
 chown -hR ubuntu:ubuntu /data/
 
