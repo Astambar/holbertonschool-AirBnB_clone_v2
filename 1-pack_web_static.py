@@ -9,10 +9,18 @@ from fabric.api import local
 import time
 
 def do_pack():
-    date = time.strftime("%Y%m%d%H%M%S")
+    """
+    The do_pack function creates a tarball containing the web_static folder.
+    It returns the name of the tarball it created, or None if there was an error.
+
+    :return: The path to the tarball file
+    :doc-author: Trelent
+    """
+
+    complete = time.strftime("%Y%m%d%H%M%S")
     try:
         local('mkdir -p versions')
-        local('tar -czvf versions/web_static_{}.tgz web_static'.format(date))
-        return 'versions/web_static_{}.tgz'.format(date)
-    except Exception:
+        local(f'tar -cvzf versions/web_static_{complete}.tgz web_static')
+        return f'versions/web_static_{complete}.tgz'
+    except(Exception):
         return None
