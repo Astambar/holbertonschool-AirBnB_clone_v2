@@ -18,5 +18,5 @@ def do_pack():
         local('mkdir -p versions')
         local('tar -czvf versions/web_static_{}.tgz web_static'.format(date))
         return 'versions/web_static_{}.tgz'.format(date)
-    except Exception:
+    except(Exception):
         return None
