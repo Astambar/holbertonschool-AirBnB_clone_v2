@@ -12,29 +12,36 @@ env.hosts = ['54.83.125.162', '54.82.83.79']
 
 
 def do_deploy(archive_path):
-    """
-    Deplay all the static files in the nginx servers
-    args:
-        archive_path (str): String to the path of the archive
-    """
-    if exists(archive_path) is False:
+    '''
+    deploy the archive in the web server
+    '''
+    if not exists(archive_path):
         return False
+
     try:
-        fileAndExent = archive_path.split('/')[-1]
-        nameFile = fileAndExent.split('.')[0]
-        path = '/data/web_static/releases'
-        print(nameFile)
+        archiveSplit = archive_path.split("/")
+        archiveName = archiveSplit[1]
+        filename = archiveName.split(".")[0]
+        releasePath = "/data/web_static/releases/"
 
-        put(archive_path, '/tmp/{}'.format(fileAndExent))
-        run('rm -rf {}/{}'.format(path, nameFile))
-        run('mkdir -p {}/{}'.format(path, nameFile))
-        run('tar -xzf /tmp/{} -C {}/{}/'.format(fileAndExent, path, nameFile))
-        run('mv {}/{}/web_static/* {}/{}'.format(
-                                path, nameFile,
-                                path, nameFile))
-        run('rm /tmp/{}'.format(fileAndExent))
-        run('rm /data/web_static/current')
-        run('ln -sf {}/{} /data/web_static/current'.format(path, nameFile))
+        put(archive_path, "/tmp/{}".format(archiveName))
 
+        run("mkdir -p {}/{}/".format(releasePath, filename))
+        run("tar -xzf /tmp/{} -C {}/{}/".format(archiveName, releasePath,
+            filename))
+
+        run("rm /tmp/{}".format(archiveName))
+
+        run("mv {}/{}/web_static/* {}/{}/".format(releasePath, filename,
+            releasePath, filename))
+        run("rm -rf {}/{}/web_static".format(releasePath, filename))
+
+        run("rm -rf /data/web_static/current")
+        run("ln -s {}/{}/ /data/web_static/current".format(releasePath,
+            filename))
+
+        print("New version deployed!")
+
+        return True
     except Exception:
         return False
