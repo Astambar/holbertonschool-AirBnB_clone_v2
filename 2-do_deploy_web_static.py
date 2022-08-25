@@ -6,6 +6,7 @@ my AirBnB static clone
 """
 
 from fabric.api import put, run, env
+from os.path import exists
 
 env.hosts = ['52.55.249.213']
 
@@ -16,6 +17,8 @@ def do_deploy(archive_path):
     args:
         archive_path (str): String to the path of the archive
     """
+    if exists(archive_path) is False:
+        return False
     try:
         fileAndExent = archive_path.split('/')[-1]
         nameFile = fileAndExent.split('.')[0]
