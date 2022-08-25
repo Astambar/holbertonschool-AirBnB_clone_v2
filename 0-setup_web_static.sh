@@ -1,35 +1,11 @@
-#!/usr/bin/env sh
-#install nginx
-nginx=$(which nginx)
-if [ "$nginx" = "" ]
-then
-    sudo apt update -y
-    sudo apt install nginx -y
-fi
-#create folder
-listFolder="data
-			data/web_static/
-			data/web_static/releases/
-			data/web_static/shared/
-			data/web_static/releases/test/"
-for element in $listFolder
-do
-		if [ ! -d $element ];then
-		mkdir "$element"
-		fi
-done
-#create file
-listFile="data/web_static/releases/test/index.html"
-for element in $listFile
-do
-		if [ ! -f $element ];then
-		touch "$element"
-		fi
-done
-if [ -L "data/web_static/current" ]; then
-echo "suppression du liens symbolic"
-unlink data/web_static/current
-fi
-echo création du liens
-ln -s data/web_static/releases/test/ data/web_static/current
-sudo service nginx restart
+#!/usr/bin/env bash
+# script that sets up your web servers for the deployment of web_static.
+apt-get update
+apt-get install -y nginx
+mkdir -p /data/web_static/shared
+mkdir -p /data/web_static/releases/test
+echo "Hello darkness my old friend" > /data/web_static/releases/test/index.html
+ln -sf /data/web_static/releases/test/ /data/web_static/current
+chown -hR ubuntu:ubuntu /data
+sed -i '/^\tserver_name/ a\\n\tlocation \/hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}' /etc/nginx/sites-available/default
+service nginx restart
