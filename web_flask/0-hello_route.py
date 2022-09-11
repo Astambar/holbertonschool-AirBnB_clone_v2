@@ -4,8 +4,8 @@
 Créer un itinéraire pour notre site Web
 """
 
-import flask
-procFlask = flask.Flask(__name__)
+from flask import Flask
+procFlask = Flask(__name__)
 
 
 @procFlask.route('/', strict_slashes=False)
