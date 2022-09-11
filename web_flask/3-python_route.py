@@ -7,6 +7,11 @@ Create a route for our website
 from flask import Flask
 procFlask = Flask(__name__)
 
+def defaultTxt(persistantTxt, text):
+    """
+    defaultTxt
+    """
+    return persistantTxt + text.replace('_', ' ')
 
 @procFlask.route('/', strict_slashes=False)
 def index():
@@ -29,7 +34,7 @@ def cIsFun(text):
     """
     Display c with the parameter
     """
-    return 'C ' + text.replace('_', ' ')
+    return defaultTxt('C ', text)
 
 
 @procFlask.route('/python', strict_slashes=False)
@@ -38,7 +43,7 @@ def python(text='is cool'):
     """
     Display python with the parameter, that got a default value
     """
-    return 'python ' + text.replace('_', ' ')
+    return defaultTxt('Python ', text)
 
 
 if __name__ == '__main__':
