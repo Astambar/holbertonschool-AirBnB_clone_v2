@@ -1,13 +1,15 @@
 #!/usr/bin/python3
 """ Module that start a Flask Webb app"""
 from flask import Flask, render_template
-from models import storage
+from ..models import storage
 app = Flask(__name__)
 
 
 @app.teardown_appcontext
-def teardown_data(self):
-    """ Remove the current SQLAlchemy Session """
+def teardown_db(exception):
+    """
+    démonter la base de données, pour la réinitialiser.
+    """
     storage.close()
 
 

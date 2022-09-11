@@ -13,7 +13,7 @@ procFlask = Flask(__name__)
 @procFlask.teardown_procFlaskcontext
 def teardown_db(exception):
     """
-    teardown the database, to reset it.
+    démonter la base de données, pour la réinitialiser.
     """
     storage.close()
 
