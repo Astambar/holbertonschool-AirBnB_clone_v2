@@ -8,6 +8,9 @@ from flask import Flask
 procFlask = Flask(__name__)
 
 def defaultTxt(persistantTxt, text):
+    """
+    defaultTxt
+    """
     return persistantTxt + text.replace('_', ' ')
 
 @procFlask.route('/', strict_slashes=False)
