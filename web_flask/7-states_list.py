@@ -1,30 +1,22 @@
-#!/usr/bin/python3.8
-
-"""
-List all States through an end point
-"""
-
+#!/usr/bin/python3
+""" Module that start a Flask Webb app"""
 from flask import Flask, render_template
-from models import *
 from models import storage
-procFlask = Flask(__name__)
+app = Flask(__name__)
 
 
-@procFlask.teardown_procFlaskcontext
-def teardown_db(exception):
-    """
-    teardown the database, to reset it.
-    """
+@app.teardown_appcontext
+def teardown_data(self):
+    """ Remove the current SQLAlchemy Session """
     storage.close()
 
 
-@procFlask.route('/states_list', strict_slashes=False)
-def statesList():
-    """
-    """
-    states = sorted(list(storage.all("State").values()), key=lambda x: x.name)
-    return render_template('7-states_list.html', states=states)
+@app.route('/states_list', strict_slashes=False)
+def index():
+    """display a HTML page"""
+    data = storage.all("State")
+    return render_template('7-states_list.html', data=data)
 
 
 if __name__ == '__main__':
-    procFlask.run(host='0.0.0.0', port='5000')
+    app.run(host='0.0.0.0', port=5000)
