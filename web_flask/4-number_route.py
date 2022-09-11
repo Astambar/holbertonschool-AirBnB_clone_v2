@@ -7,8 +7,6 @@ Create a route for our website
 from flask import Flask, escape
 procFlask = Flask(__name__)
 
-def defaultTxt(persistantTxt, text):
-    return persistantTxt + text.replace('_', ' ')
 
 @procFlask.route('/', strict_slashes=False)
 def index():
