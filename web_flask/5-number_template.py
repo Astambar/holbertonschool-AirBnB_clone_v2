@@ -31,7 +31,7 @@ def cIsFun(text):
     """
     Display c with the parameter
     """
-    return defaultTxt('C ', text)
+    return 'C ' + text.replace('_', ' ')
 
 
 @procFlask.route('/python', strict_slashes=False)
@@ -40,7 +40,7 @@ def python(text='is cool'):
     """
     Display python with the parameter, that got a default value
     """
-    return defaultTxt('Python ', text)
+    return 'Python ' + text.replace('_', ' ')
 
 
 @procFlask.route('/number/<int:n>', strict_slashes=False)
