@@ -1,4 +1,4 @@
-#!/usr/bin/python3.8
+#!/usr/bin/python3
 
 """
 List all States through an end point
@@ -41,11 +41,9 @@ def statesCityList(id):
 def hbnb_filters():
     states = storage.all("State").values()
     amenities = storage.all("Amenity").values()
-    cities = list()
-
+    cities = []
     for state in states:
-        for city in state.cities:
-            cities.append(city)
+        cities.extend(iter(state.cities))
 
     return render_template('10-hbnb_filters.html',
                             states=states, state_cities=cities,
